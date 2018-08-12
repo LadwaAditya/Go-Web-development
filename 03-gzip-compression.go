@@ -1,9 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/handlers"
 )
 
 const (
@@ -12,10 +14,11 @@ const (
 )
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
+	io.WriteString(w, "Hello World!")
 }
 
 func main() {
-	http.HandleFunc("/", helloWorld)
-	log.Fatal(http.ListenAndServe(HOST+":"+PORT, nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", helloWorld)
+	log.Fatal(http.ListenAndServe(HOST+":"+PORT, handlers.CompressHandler(mux)))
 }
