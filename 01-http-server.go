@@ -6,6 +6,9 @@ import (
 	"net/http"
 )
 
+/*
+*Common types for HOST and PORT
+ */
 const (
 	HOST = "localhost"
 	PORT = "8080"
