@@ -60,6 +60,7 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logout)
 	err := http.ListenAndServe(HOST+":"+PORT, nil)
+	defer store.Close()
 	if err != nil {
 		log.Fatal("Error starting server : ", err)
 		return
